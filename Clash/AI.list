@@ -7,3 +7,5 @@ DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,copilot.microsoft.com
+DOMAIN-SUFFIX,qwen.ai
+DOMAIN-SUFFIX,qwenlm.github.io
