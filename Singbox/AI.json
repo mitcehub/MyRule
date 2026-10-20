@@ -12,7 +12,24 @@
         "anthropic.com",
         "copilot.microsoft.com",
         "workbuddy.ai",
-        "codebuddy.ai"
+        "codebuddy.ai",
+        "openaimerge.com"
+      ]
+    },
+    {
+      "domain": [
+        "ct.sendgrid.net",
+        "cdn.workos.com",
+        "forwarder.workos.com",
+        "frontend-apps-multi-region.workos.com",
+        "setup.workos.com",
+        "images.workoscdn.com",
+        "workos.imgix.net",
+        "challenges.cloudflare.com",
+        "js.intercomcdn.com",
+        "js.stripe.com",
+        "o207216.ingest.sentry.io",
+        "rum.browser-intake-datadoghq.com"
       ]
     }
   ]
