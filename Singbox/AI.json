@@ -9,7 +9,10 @@
         "waa-pa.clients6.google.com",
         "claude.ai",
         "claude.com",
-        "anthropic.com"
+        "anthropic.com",
+        "copilot.microsoft.com",
+        "workbuddy.ai",
+        "codebuddy.ai"
       ]
     }
   ]
