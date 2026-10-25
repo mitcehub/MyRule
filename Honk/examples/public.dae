@@ -1,0 +1,24 @@
+# Public category references only; update GeoSite/GeoIP independently.
+# Requires Proxy, ChatGPT, Instagram, TikTok, Microsoft, Apple and Final groups.
+routing {
+    domain(geosite: kuaishou) -> direct
+    domain(geosite: douyin) -> direct
+    domain(geosite: dola) -> ChatGPT
+    domain(geosite: openai) -> ChatGPT
+    domain(geosite: google-gemini) -> ChatGPT
+    domain(geosite: youtube) -> Proxy
+    domain(geosite: google) -> Proxy
+    domain(geosite: github) -> Proxy
+    domain(geosite: twitter) -> Proxy
+    domain(geosite: instagram) -> Instagram
+    domain(geosite: tiktok) -> TikTok
+    domain(geosite: telegram) -> Proxy
+    domain(geosite: microsoft) -> Microsoft
+    domain(geosite: apple) -> Apple
+    dip(geoip: google) -> Proxy
+    dip(geoip: telegram) -> Proxy
+    domain(geosite: geolocation-!cn) -> Proxy
+    domain(geosite: cn) -> direct
+    dip(geoip: cn) -> direct
+    fallback: Final
+}

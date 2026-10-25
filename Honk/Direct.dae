@@ -1,0 +1,19 @@
+# Generated from Clash/Direct.list; edit that list and run scripts/generate_honk_rules.py.
+# Routing fragment only: no nodes, subscriptions, groups or fallback.
+routing {
+    domain(suffix: "time.windows.com") -> direct
+    domain(suffix: "hf.co") -> direct
+    domain(suffix: "tiantianjiexi.com") -> direct
+    domain(suffix: "wsbkwai.com") -> direct
+    domain(suffix: "wskwai.com") -> direct
+    domain(suffix: "zijieapi.com") -> direct
+    domain(suffix: "byteing.com") -> direct
+    domain(suffix: "ndcmgs.com") -> direct
+    domain(suffix: "ndcimgs.com") -> direct
+    domain(suffix: "bytetos.com") -> direct
+    domain(suffix: "bytescm.com") -> direct
+    domain(suffix: "ibytedapm.com") -> direct
+    domain(suffix: "yhgfb-cn-static.com") -> direct
+    domain(suffix: "bytegoofy.com") -> direct
+    domain(suffix: "opencode.ai") -> direct
+}

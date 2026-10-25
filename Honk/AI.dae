@@ -1,0 +1,27 @@
+# Generated from Clash/AI.list; edit that list and run scripts/generate_honk_rules.py.
+# Routing fragment only: no nodes, subscriptions, groups or fallback.
+routing {
+    domain(suffix: "capcut.com") -> ChatGPT
+    domain(suffix: "capcutapi.com") -> ChatGPT
+    domain(suffix: "aistudio.google.com") -> ChatGPT
+    domain(suffix: "waa-pa.clients6.google.com") -> ChatGPT
+    domain(suffix: "claude.ai") -> ChatGPT
+    domain(suffix: "claude.com") -> ChatGPT
+    domain(suffix: "anthropic.com") -> ChatGPT
+    domain(suffix: "copilot.microsoft.com") -> ChatGPT
+    domain(suffix: "workbuddy.ai") -> ChatGPT
+    domain(suffix: "codebuddy.ai") -> ChatGPT
+    domain(full: "ct.sendgrid.net") -> ChatGPT
+    domain(full: "cdn.workos.com") -> ChatGPT
+    domain(full: "forwarder.workos.com") -> ChatGPT
+    domain(full: "frontend-apps-multi-region.workos.com") -> ChatGPT
+    domain(full: "setup.workos.com") -> ChatGPT
+    domain(full: "images.workoscdn.com") -> ChatGPT
+    domain(full: "workos.imgix.net") -> ChatGPT
+    domain(full: "challenges.cloudflare.com") -> ChatGPT
+    domain(full: "js.intercomcdn.com") -> ChatGPT
+    domain(full: "js.stripe.com") -> ChatGPT
+    domain(full: "o207216.ingest.sentry.io") -> ChatGPT
+    domain(full: "rum.browser-intake-datadoghq.com") -> ChatGPT
+    domain(suffix: "openaimerge.com") -> ChatGPT
+}
