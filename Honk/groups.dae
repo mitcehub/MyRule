@@ -1,82 +1,82 @@
 # Node-free groups. Region filters follow node names from native subscriptions.
 group {
-    Direct {
+    🟢 直连 {
         filter: name('direct')
         policy: select
         default: 'direct'
     }
-    Proxy {
-        filter: group('Auto', 'HK_TW', 'JP', 'SG', 'US', 'Direct', 'Airport_01', 'Airport_02', 'Airport_04', 'Airport_05')
+    🚀 节点选择 {
+        filter: group('♻️ 自动选择', '🇭🇰 港台自动', '🇯🇵 日本自动', '🇸🇬 新加坡自动', '🇺🇸 美国自动', '🟢 直连', '🛫 机场01', '🛫 机场02', '🛫 机场04', '🛫 机场05')
         policy: select
-        default: 'Auto'
+        default: '♻️ 自动选择'
     }
-    Auto {
+    ♻️ 自动选择 {
         filter: !name(regex: '(?i)(直连|官网|更新|失联|剩余|到期|套餐|重置|群|IEPL|3x|4x|5x|流量用完|订阅信息)')
         policy: min_moving_avg
     }
-    HK_TW {
+    🇭🇰 港台自动 {
         filter: name(regex: '(?i)(香港|港|台湾|🇭🇰|hk|taiwan|hong)') && !name(regex: '(?i)(3x|4x|5x|剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }
-    JP {
+    🇯🇵 日本自动 {
         filter: name(regex: '(?i)(日本|东京|🇯🇵|jp|japan)') && !name(regex: '(?i)(3x|4x|5x|剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }
-    KR {
+    🇰🇷 韩国自动 {
         filter: name(regex: '(?i)(韩国|韩|🇰🇷|kr|korea)') && !name(regex: '(?i)(3x|4x|5x|剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }
-    SG {
+    🇸🇬 新加坡自动 {
         filter: name(regex: '(?i)(新加坡|星|🇸🇬|sg|singapore)') && !name(regex: '(?i)(3x|4x|5x|剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }
-    US {
+    🇺🇸 美国自动 {
         filter: name(regex: '(?i)(美国|美|凤凰城|🇺🇲|us|states|america)') && !name(regex: '(?i)(3x|4x|5x|剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }
-    ChatGPT {
-        filter: group('SG', 'JP', 'KR', 'US')
+    🤖 ChatGPT {
+        filter: group('🇸🇬 新加坡自动', '🇯🇵 日本自动', '🇰🇷 韩国自动', '🇺🇸 美国自动')
         policy: select
-        default: 'SG'
+        default: '🇸🇬 新加坡自动'
     }
-    Instagram {
-        filter: group('SG', 'JP', 'KR', 'US')
+    🏞️ Instagram {
+        filter: group('🇸🇬 新加坡自动', '🇯🇵 日本自动', '🇰🇷 韩国自动', '🇺🇸 美国自动')
         policy: select
-        default: 'SG'
+        default: '🇸🇬 新加坡自动'
     }
-    TikTok {
-        filter: group('US', 'SG', 'JP', 'KR')
+    🎵 TikTok {
+        filter: group('🇺🇸 美国自动', '🇸🇬 新加坡自动', '🇯🇵 日本自动', '🇰🇷 韩国自动')
         policy: select
-        default: 'US'
+        default: '🇺🇸 美国自动'
     }
-    Microsoft {
-        filter: group('Direct', 'US', 'JP', 'KR')
+    🪟 Microsoft {
+        filter: group('🟢 直连', '🇺🇸 美国自动', '🇯🇵 日本自动', '🇰🇷 韩国自动')
         policy: select
-        default: 'Direct'
+        default: '🟢 直连'
     }
-    Apple {
-        filter: group('Direct', 'Proxy')
+    🍏 Apple {
+        filter: group('🟢 直连', '🚀 节点选择')
         policy: select
-        default: 'Direct'
+        default: '🟢 直连'
     }
-    Final {
-        filter: group('Direct', 'Proxy')
+    🐠 漏网之鱼 {
+        filter: group('🟢 直连', '🚀 节点选择')
         policy: select
-        default: 'Direct'
+        default: '🟢 直连'
     }
-    Airport_01 {
+    🛫 机场01 {
         filter: subtag('Airport_01') && !name(regex: '(?i)(剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }
-    Airport_02 {
+    🛫 机场02 {
         filter: subtag('Airport_02') && !name(regex: '(?i)(剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }
-    Airport_04 {
+    🛫 机场04 {
         filter: subtag('Airport_04') && !name(regex: '(?i)(剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }
-    Airport_05 {
+    🛫 机场05 {
         filter: subtag('Airport_05') && !name(regex: '(?i)(剩余流量|流量用完|套餐|到期|重置|官网|订阅信息)')
         policy: min_moving_avg
     }

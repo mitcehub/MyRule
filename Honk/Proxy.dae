@@ -1,11 +1,11 @@
 # Generated from Clash/Proxy.list; edit that list and run scripts/generate_honk_rules.py.
 # Routing fragment only: no nodes, subscriptions, groups or fallback.
 routing {
-    domain(suffix: "qichiyu.com") -> Proxy
-    domain(suffix: "ruanjianku.cloud") -> Proxy
-    domain(suffix: "gta5-mods.com") -> Proxy
-    domain(suffix: "nicevoice.org") -> Proxy
-    domain(suffix: "open-vsx.org") -> Proxy
-    domain(suffix: "openvsx.eclipsecontent.org") -> Proxy
-    domain(suffix: "istockphoto.com") -> Proxy
+    domain(suffix: "qichiyu.com") -> 🚀 节点选择
+    domain(suffix: "ruanjianku.cloud") -> 🚀 节点选择
+    domain(suffix: "gta5-mods.com") -> 🚀 节点选择
+    domain(suffix: "nicevoice.org") -> 🚀 节点选择
+    domain(suffix: "open-vsx.org") -> 🚀 节点选择
+    domain(suffix: "openvsx.eclipsecontent.org") -> 🚀 节点选择
+    domain(suffix: "istockphoto.com") -> 🚀 节点选择
 }

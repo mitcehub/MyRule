@@ -1,24 +1,24 @@
 # Public category references only; update GeoSite/GeoIP independently.
-# Requires Proxy, ChatGPT, Instagram, TikTok, Microsoft, Apple and Final groups.
+# Uses the matching Chinese/emoji group names defined in groups.dae.
 routing {
     domain(geosite: kuaishou) -> direct
     domain(geosite: douyin) -> direct
-    domain(geosite: dola) -> ChatGPT
-    domain(geosite: openai) -> ChatGPT
-    domain(geosite: google-gemini) -> ChatGPT
-    domain(geosite: youtube) -> Proxy
-    domain(geosite: google) -> Proxy
-    domain(geosite: github) -> Proxy
-    domain(geosite: twitter) -> Proxy
-    domain(geosite: instagram) -> Instagram
-    domain(geosite: tiktok) -> TikTok
-    domain(geosite: telegram) -> Proxy
-    domain(geosite: microsoft) -> Microsoft
-    domain(geosite: apple) -> Apple
-    dip(geoip: google) -> Proxy
-    dip(geoip: telegram) -> Proxy
-    domain(geosite: geolocation-!cn) -> Proxy
+    domain(geosite: dola) -> 🤖 ChatGPT
+    domain(geosite: openai) -> 🤖 ChatGPT
+    domain(geosite: google-gemini) -> 🤖 ChatGPT
+    domain(geosite: youtube) -> 🚀 节点选择
+    domain(geosite: google) -> 🚀 节点选择
+    domain(geosite: github) -> 🚀 节点选择
+    domain(geosite: twitter) -> 🚀 节点选择
+    domain(geosite: instagram) -> 🏞️ Instagram
+    domain(geosite: tiktok) -> 🎵 TikTok
+    domain(geosite: telegram) -> 🚀 节点选择
+    domain(geosite: microsoft) -> 🪟 Microsoft
+    domain(geosite: apple) -> 🍏 Apple
+    dip(geoip: google) -> 🚀 节点选择
+    dip(geoip: telegram) -> 🚀 节点选择
+    domain(geosite: geolocation-!cn) -> 🚀 节点选择
     domain(geosite: cn) -> direct
     dip(geoip: cn) -> direct
-    fallback: Final
+    fallback: 🐠 漏网之鱼
 }

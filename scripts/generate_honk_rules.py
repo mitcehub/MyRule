@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGETS = {"Direct": "direct", "Proxy": "Proxy", "AI": "ChatGPT"}
+TARGETS = {"Direct": "direct", "Proxy": "🚀 节点选择", "AI": "🤖 ChatGPT"}
 MATCHERS = {"DOMAIN": "full", "DOMAIN-SUFFIX": "suffix", "DOMAIN-KEYWORD": "keyword"}
 
 
@@ -46,7 +46,7 @@ def main():
         else:
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_bytes(expected)
-        print(f"Honk/{name}.dae: {count} rules -> {TARGETS[name]}")
+        print(f"Honk/{name}.dae: {count} rules")
     if stale:
         parser.exit(1, "Generated files need updating: " + ", ".join(stale) + "\n")
 
