@@ -10,6 +10,29 @@
 
 `Proxy`、`ChatGPT` 区分大小写，必须在主配置的 `group` 中定义。其他模板使用不同名称时，需要相应修改目标。
 
+## 无节点模板与机场订阅
+
+`template.dae` 是主配置模板，`groups.dae` 包含动态分组。这两个文件不包含节点、订阅链接或密码。将它们分别放到 `/etc/honk/config.dae`、`/etc/honk/groups.dae`，与本页面的规则片段配套使用；继续保留 LuCI 生成的 `system.dae`。
+
+机场链接保存在路由器本地 `/etc/honk/subscriptions.dae`，权限设为 `600`，不要提交到此仓库。例如：
+
+```dae
+subscription {
+    Airport_01: 'https://YOUR-SUBSCRIPTION-URL' {
+        interval: 86400s
+        route: direct
+    }
+}
+```
+
+`groups.dae` 的机场组预留为 `Airport_01`、`Airport_02`、`Airport_04`、`Airport_05`，按 `subtag` 匹配；更名后需要同步修改机场组。地区组按订阅节点的名称动态筛选，不依赖固定的 `node_1` 编号。原生订阅按配置的间隔刷新节点，规则文件则另行更新。
+
+选择组排除“剩余流量、流量用完、套餐、到期、重置、官网、订阅信息”等提示节点；机场只有提示项时，对应机场组会为空。订阅仍保留，续费并刷新后可重新匹配实际节点。订阅列表的原始条目数量可能包含这些提示项，不等于可用节点数量。
+
+默认选择保留原 Nikki 方案：`Proxy` 选 `Auto`，`ChatGPT`、`Instagram` 选 `SG`，`TikTok` 选 `US`，`Microsoft`、`Apple`、`Final` 选 `Direct`。可在 Clash API 面板中调整。
+
+这些文件需要一起部署，不能只在 LuCI 上传一个 `template.dae` 就完成安装。首次应用前应下载全部引用文件、填写自己的订阅，并检查各分组有可用成员。主机名形式的机场服务器应有独立的 `bootstrap_resolver`，避免通过代理解析代理服务器自身的启动循环；在此路由器上使用的值是 `192.168.1.1:53`，其他网络需自行调整。
+
 ## 维护名单
 
 以本仓库 `Clash/*.list` 为共同名单源，修改后在仓库根目录运行：
