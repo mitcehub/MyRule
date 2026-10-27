@@ -4,11 +4,8 @@ include {
     system.dae
     subscriptions.dae
     groups.dae
-    rules/local.dae
-    rules/Direct.dae
-    rules/Proxy.dae
-    rules/AI.dae
-    rules/public.dae
+    rule-providers.dae
+    routing.dae
 }
 
 dns {

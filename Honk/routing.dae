@@ -1,0 +1,30 @@
+# Nikki rule order and outbound groups; MRS categories use installed GeoSite/GeoIP.
+# LAN protection precedes Nikki rules; private IP excludes port 53 for transparent DNS.
+routing {
+    dip(224.0.0.0/3, 'ff00::/8') -> direct
+    dip(geoip: private) && !dport(53) -> direct(must)
+    domain(geosite: private) -> direct
+    rule_set('my-direct') -> direct
+    rule_set('my-proxy') -> 🚀 节点选择
+    domain(geosite: kuaishou) -> direct
+    domain(geosite: douyin) -> direct
+    rule_set('my-ai') -> 🤖 ChatGPT
+    domain(geosite: dola) -> 🤖 ChatGPT
+    domain(geosite: openai) -> 🤖 ChatGPT
+    domain(geosite: google-gemini) -> 🤖 ChatGPT
+    domain(geosite: youtube) -> 🚀 节点选择
+    domain(geosite: google) -> 🚀 节点选择
+    domain(geosite: github) -> 🚀 节点选择
+    domain(geosite: twitter) -> 🚀 节点选择
+    domain(geosite: instagram) -> 🏞️ Instagram
+    domain(geosite: tiktok) -> 🎵 TikTok
+    domain(geosite: telegram) -> 🚀 节点选择
+    domain(geosite: microsoft) -> 🪟 Microsoft
+    domain(geosite: apple) -> 🍏 Apple
+    dip(geoip: google) -> 🚀 节点选择
+    dip(geoip: telegram) -> 🚀 节点选择
+    domain(geosite: geolocation-!cn) -> 🚀 节点选择
+    domain(geosite: cn) -> direct
+    dip(geoip: cn) -> direct
+    fallback: 🐠 漏网之鱼
+}
