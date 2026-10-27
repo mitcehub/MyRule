@@ -1,82 +1,44 @@
-# Honk 自定义补充规则
+# Honk 远程自定义规则
 
-与本仓库 `Clash/`、`Singbox/` 对应，只维护自定义补充名单。公共域名、IP 分类继续使用单独更新的 GeoSite / GeoIP；机场订阅、节点和地区分组不放在这些规则文件里。
+本目录现在面向支持 `rule_set` 的 Honk 修改版。原版核心和原生 dae 不保证识别此扩展，升级前不要直接替换正在使用的配置。
 
-| 文件 | 内容 | 出站目标 |
-| --- | --- | --- |
-| `Direct.dae` | 自定义直连名单 | 内置 `direct` |
-| `Proxy.dae` | 自定义代理名单 | `🚀 节点选择` 分组 |
-| `AI.dae` | 自定义 AI 名单 | `🤖 ChatGPT` 分组 |
+## 文件职责
 
-`🚀 节点选择`、`🤖 ChatGPT` 必须在配置的 `group` 中定义，名称及空格需要完全一致。其他模板使用不同名称时，需要相应修改目标。
+- `groups.dae`：自动选择、地区和服务分组；不再创建机场策略组。机场以真实 subscription 来源显示在支持的面板卡片中。
+- `Direct.dae`、`Proxy.dae`、`AI.dae`：声明远程来源并把来源名称绑定到出站，文件中不再逐条写域名。
+- `remote/Direct.list`、`Proxy.list`、`AI.list`：不含出站动作的 classical/text 规则正文，由核心通过 HTTPS 下载。
+- `template.dae`：主配置模板，按局域网保护、自定义规则、公共分类的顺序 include 本地配置片段。
+- `remote/sources.dae`：三份来源声明和路由引用的合并版。与上述三个 .dae 二选一，不能重复 include。
 
-## 无节点模板与机场订阅
+## 部署
 
-`template.dae` 是主配置模板，`groups.dae` 包含动态分组。这两个文件不包含节点、订阅链接或密码。将它们分别放到 `/etc/honk/config.dae`、`/etc/honk/groups.dae`，与本页面的规则片段配套使用；继续保留 LuCI 生成的 `system.dae`。
+保留 LuCI 生成的 `system.dae` 和本地私密 `subscriptions.dae`。把 template.dae 放到 `/etc/honk/config.dae`，groups.dae 放到 `/etc/honk/groups.dae`；三个 .dae 和 examples/local.dae、examples/public.dae 放到 `/etc/honk/rules/`。这些配置片段需要先放到本地；它们声明的 .list 正文由核心远程下载。
 
-机场链接保存在路由器本地 `/etc/honk/subscriptions.dae`，权限设为 `600`，不要提交到此仓库。例如：
+下载出口默认 `🇭🇰 港台自动`，该组必须存在并可连接；可根据网络改为 direct 或其他可用组。首次没有有效缓存时，下载失败会拒绝启动；成功后保留最后有效缓存。更新失败不会替换当前规则。
+
+自定义规则优先于公共 GeoSite/GeoIP 规则，列表顺序为 my-direct、my-proxy、my-ai；重叠条目以先匹配者为准。fallback 必须最后。通过 `/rules` 核对顺序，通过 `/providers/rules` 查看规则来源、条目数和更新时间；`PUT /providers/rules/{name}` 单独更新。公共分类仍使用 GeoSite/GeoIP 数据库，不支持直接加载 MRS。
+
+mitce 仅手动刷新可这样配置（仅修改版支持）：
 
 ```dae
 subscription {
-    Airport_01: 'https://YOUR-SUBSCRIPTION-URL' {
-        interval: 86400s
-        route: direct
+    mitce: 'https://YOUR-SUBSCRIPTION-URL' {
+        auto_update: false
+        interval: 0
+        cache: true
     }
 }
 ```
 
-`groups.dae` 的机场组显示为 `🛫 机场01`、`🛫 机场02`、`🛫 机场04`、`🛫 机场05`，分别按订阅标识 `Airport_01`、`Airport_02`、`Airport_04`、`Airport_05` 的 `subtag` 匹配；修改订阅标识时需要同步修改筛选条件。地区组按订阅节点的名称动态筛选，不依赖固定的 `node_1` 编号。原生订阅按配置的间隔刷新节点，规则文件则另行更新。
+无缓存时需先手动刷新一次。不要把真实订阅链接或密码提交到仓库。
 
-选择组排除“剩余流量、流量用完、套餐、到期、重置、官网、订阅信息”等提示节点；机场只有提示项时，对应机场组会为空。订阅仍保留，续费并刷新后可重新匹配实际节点。订阅列表的原始条目数量可能包含这些提示项，不等于可用节点数量。
+## 维护
 
-默认选择保留原 Nikki 方案：`🚀 节点选择` 选 `♻️ 自动选择`，`🤖 ChatGPT`、`🏞️ Instagram` 选 `🇸🇬 新加坡自动`，`🎵 TikTok` 选 `🇺🇸 美国自动`，`🪟 Microsoft`、`🍏 Apple`、`🐠 漏网之鱼` 选内置 `direct`。其他地区组为 `🇭🇰 港台自动`、`🇯🇵 日本自动`、`🇰🇷 韩国自动`。可在 Clash API 面板中调整。
-
-不额外建立直连组：需要允许直连的选择组使用 `filter: name('direct')` 纳入 Honk 内置节点，并用 `default: 'direct'` 设置默认直连。`direct` 保留原始英文名称，不作为嵌套分组引用。
-
-这些文件需要一起部署，不能只在 LuCI 上传一个 `template.dae` 就完成安装。首次应用前应下载全部引用文件、填写自己的订阅，并检查各分组有可用成员。主机名形式的机场服务器应有独立的 `bootstrap_resolver`，避免通过代理解析代理服务器自身的启动循环；在此路由器上使用的值是 `192.168.1.1:53`，其他网络需自行调整。
-
-## 维护名单
-
-以本仓库 `Clash/*.list` 为共同名单源，修改后在仓库根目录运行：
+名单在 `Clash/*.list` 维护，然后运行：
 
 ```sh
 python scripts/generate_honk_rules.py
 python scripts/generate_honk_rules.py --check
 ```
 
-生成器保留 `DOMAIN`、`DOMAIN-SUFFIX`、`DOMAIN-KEYWORD` 的匹配含义和文件内顺序；遇到不支持的规则会报错，不会静默丢弃。生成的 `.dae` 应与名单一起提交，避免手动修改生成文件后被下次生成覆盖。这个脚本目前只生成 Honk 文件，不修改现有 Clash 和 Singbox 文件。
-
-## 在 Honk 中使用
-
-先把三份 `.dae` 下载到路由器 `/etc/honk/rules/`。将 `examples/local.dae`、`examples/public.dae` 作为局域网保护和公共分类的接入示例，核对分组和 Geo 分类后也放到该目录，再让主配置引用本地文件：
-
-```dae
-include {
-    system.dae
-    rules/local.dae
-    rules/Direct.dae
-    rules/Proxy.dae
-    rules/AI.dae
-    rules/public.dae
-}
-```
-
-主配置只保留节点/订阅、分组、DNS 与上述 `include`，不要再留顶层 `routing` 块。路由器上实测，入口文件的规则会排在被引用文件之前，不能只靠将 `include` 写在文件开头来改变优先级。
-
-所有顶层流量规则按上述顺序放进片段，实际顺序为“局域网保护 → 自定义直连 → 自定义代理 → 自定义 AI → 公共分类与兜底”。通过 Honk 的 `/rules` 接口复核最终顺序。移除主配置中重复的旧规则，但保留 `dns` 内的 DNS 路由。
-
-示例引用的是 Honk 的 Geo 分类，并没有复制公共大规则的具体域名、IP 内容；公共库仍独立下载、更新。示例的分组和分类沿用本仓库作者的配置，使用其他模板时需要核对，不代表任何 Geo 数据库都包含所有标签。
-
-这三份文件是 `include` 片段，不是完整配置，不要在 LuCI 的“导入配置”中逐个导入，否则现有导入器可能替换整块路由配置。
-
-发布后的原始文件地址：
-
-```text
-https://raw.githubusercontent.com/mitcehub/MyRule/main/Honk/Direct.dae
-https://raw.githubusercontent.com/mitcehub/MyRule/main/Honk/Proxy.dae
-https://raw.githubusercontent.com/mitcehub/MyRule/main/Honk/AI.dae
-```
-
-`include` 读取本地文件，不会自行下载 HTTP 地址。更新时应先下载到临时目录，结合当前分组验证成功后再替换，并保留上一个可用版本。此次目录和生成器本身没有设置路由器定时更新，也没有添加 GitHub 自动提交工作流。
-
-公共分类使用单独更新的 `geosite.dat` / `geoip.dat`。本目录不复制公共大规则，不解析 Clash `.mrs`，也不把机场链接或凭据提交到 GitHub。
+生成器保留精确匹配、后缀及关键词的含义和顺序，同时生成 Honk 远程正文及配置引用。`🚀 节点选择`、`🤖 ChatGPT` 和下载组必须与 groups.dae 一致。配置片段不是完整配置，不要用仅合并 node 块的 LuCI 导入入口导入。

@@ -1,4 +1,4 @@
-"""Generate native Honk routing fragments from this repository's Clash lists."""
+"""Generate Honk remote rule sources and references from the shared Clash lists."""
 import argparse
 import json
 from pathlib import Path
@@ -27,7 +27,13 @@ def render(name, outbound):
         lines.append(f"    domain({MATCHERS[parts[0]]}: {value}) -> {outbound}")
         count += 1
     lines.append("}")
-    return "\n".join(lines) + "\n", count
+    source_name = "my-" + name.lower()
+    return (f"# Requires Honk with remote rule_set support; not a static matcher list.\n"
+            f"rule_set {{\n    {source_name} {{\n"
+            f"        url: 'https://raw.githubusercontent.com/mitcehub/MyRule/main/Honk/remote/{name}.list'\n"
+            "        format: text\n        behavior: classical\n"
+            "        route: '🇭🇰 港台自动'\n        interval: 86400\n    }\n}\n"
+            f"routing {{\n    rule_set('{source_name}') -> {outbound}\n}}\n"), count
 
 
 def main():
