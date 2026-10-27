@@ -1,4 +1,4 @@
-# Remote source declarations only; routing actions are in rules/custom.dae.
+# Remote source declarations only; routing actions are in routing.dae.
 rule_set {
     my-direct {
         url: 'https://raw.githubusercontent.com/mitcehub/MyRule/main/Honk/remote/Direct.list'
