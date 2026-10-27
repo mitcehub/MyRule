@@ -1,0 +1,24 @@
+# Generated from Clash/AI.list; no outbound actions.
+DOMAIN-SUFFIX,capcut.com
+DOMAIN-SUFFIX,capcutapi.com
+DOMAIN-SUFFIX,aistudio.google.com
+DOMAIN-SUFFIX,waa-pa.clients6.google.com
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-SUFFIX,copilot.microsoft.com
+DOMAIN-SUFFIX,workbuddy.ai
+DOMAIN-SUFFIX,codebuddy.ai
+DOMAIN,ct.sendgrid.net
+DOMAIN,cdn.workos.com
+DOMAIN,forwarder.workos.com
+DOMAIN,frontend-apps-multi-region.workos.com
+DOMAIN,setup.workos.com
+DOMAIN,images.workoscdn.com
+DOMAIN,workos.imgix.net
+DOMAIN,challenges.cloudflare.com
+DOMAIN,js.intercomcdn.com
+DOMAIN,js.stripe.com
+DOMAIN,o207216.ingest.sentry.io
+DOMAIN,rum.browser-intake-datadoghq.com
+DOMAIN-SUFFIX,openaimerge.com

@@ -47,6 +47,21 @@ def main():
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_bytes(expected)
         print(f"Honk/{name}.dae: {count} rules")
+        # The remote rule_set reader expects action-free classical lists.
+        # Reuse the validated source instead of maintaining another domain list.
+        remote = ROOT / "Honk" / "remote" / f"{name}.list"
+        entries = [line.strip() for line in (ROOT / "Clash" / f"{name}.list")
+                   .read_text(encoding="utf-8-sig").splitlines()
+                   if line.strip() and not line.lstrip().startswith("#")]
+        remote_bytes = (f"# Generated from Clash/{name}.list; no outbound actions.\n"
+                        + "\n".join(entries) + "\n").encode("utf-8")
+        if args.check:
+            if not remote.exists() or remote.read_bytes() != remote_bytes:
+                stale.append(str(remote.relative_to(ROOT)))
+        else:
+            remote.parent.mkdir(parents=True, exist_ok=True)
+            remote.write_bytes(remote_bytes)
+        print(f"Honk/remote/{name}.list: {len(entries)} rules")
     if stale:
         parser.exit(1, "Generated files need updating: " + ", ".join(stale) + "\n")
 
