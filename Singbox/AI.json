@@ -1,31 +1,4 @@
 {
   "version": 3,
-  "rules": [
-    {
-      "domain_suffix": [
-        "capcut.com",
-        "capcutapi.com",
-        "waa-pa.clients6.google.com",
-        "workbuddy.ai",
-        "codebuddy.ai",
-        "openaimerge.com"
-      ]
-    },
-    {
-      "domain": [
-        "ct.sendgrid.net",
-        "cdn.workos.com",
-        "forwarder.workos.com",
-        "frontend-apps-multi-region.workos.com",
-        "setup.workos.com",
-        "images.workoscdn.com",
-        "workos.imgix.net",
-        "challenges.cloudflare.com",
-        "js.intercomcdn.com",
-        "js.stripe.com",
-        "o207216.ingest.sentry.io",
-        "rum.browser-intake-datadoghq.com"
-      ]
-    }
-  ]
+  "rules": []
 }
